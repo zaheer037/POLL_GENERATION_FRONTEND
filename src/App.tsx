@@ -17,6 +17,7 @@ import Participants from './pages/Participants';
 import Leaderboard from './pages/Leaderboard';
 import Reports from './pages/Reports';
 import Settings from './pages/Settings';
+import HomePage from './pages/HomePage';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <div className="min-h-screen bg-gradient-to-br from-dark-900 via-dark-800 to-dark-900">
               <LoadingScreen />
               <Routes>
+                <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/forgot-password" element={<ForgotPasswordPage />} />
