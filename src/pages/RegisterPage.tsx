@@ -14,6 +14,73 @@ interface RegisterForm {
   role: 'host' | 'student';
 }
 
+const getPasswordStrength = (password: string): { strength: 'weak' | 'medium' | 'strong'; message: string } => {
+  if (!password) return { strength: 'weak', message: 'Enter password' };
+  
+  const hasLower = /[a-z]/.test(password);
+  const hasUpper = /[A-Z]/.test(password);
+  const hasNumber = /\d/.test(password);
+  const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+  const length = password.length;
+
+  const conditions = [hasLower, hasUpper, hasNumber, hasSpecial];
+  const passedConditions = conditions.filter(Boolean).length;
+
+  if (length < 6) return { strength: 'weak', message: 'Password is too short' };
+  if (passedConditions <= 2) return { strength: 'weak', message: 'Weak password' };
+  if (passedConditions === 3) return { strength: 'medium', message: 'Medium strength password' };
+  return { strength: 'strong', message: 'Strong password' };
+};
+
+const PasswordStrengthIndicator = ({ password }: { password: string }) => {
+  const { strength, message } = getPasswordStrength(password);
+  
+  const getStrengthColor = () => {
+    switch (strength) {
+      case 'weak': return 'bg-red-500';
+      case 'medium': return 'bg-yellow-500';
+      case 'strong': return 'bg-green-500';
+      default: return 'bg-gray-500';
+    }
+  };
+
+  return (
+    <div className="mt-2">
+      <div className="flex items-center space-x-2">
+        <div className="h-1 flex-1 bg-white/5 rounded-full overflow-hidden">
+          <div
+            className={`h-full transition-all duration-300 ${getStrengthColor()}`}
+            style={{
+              width: strength === 'weak' ? '33.33%' : strength === 'medium' ? '66.66%' : '100%'
+            }}
+          />
+        </div>
+        <span className={`text-xs ${
+          strength === 'weak' ? 'text-red-400' :
+          strength === 'medium' ? 'text-yellow-400' :
+          'text-green-400'
+        }`}>
+          {message}
+        </span>
+      </div>
+      <div className="mt-2 text-xs text-gray-400 space-y-1">
+        <p className={`${/[A-Z]/.test(password) ? 'text-green-400' : ''}`}>
+          • At least one uppercase letter
+        </p>
+        <p className={`${/[0-9]/.test(password) ? 'text-green-400' : ''}`}>
+          • At least one number
+        </p>
+        <p className={`${/[!@#$%^&*(),.?":{}|<>]/.test(password) ? 'text-green-400' : ''}`}>
+          • At least one special character
+        </p>
+        <p className={`${password.length >= 6 ? 'text-green-400' : ''}`}>
+          • Minimum 6 characters
+        </p>
+      </div>
+    </div>
+  );
+};
+
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -146,9 +213,7 @@ const RegisterPage = () => {
               {errors.email && (
                 <p className="mt-1 text-sm text-red-400">{errors.email.message}</p>
               )}
-            </div>
-
-            {/* Password */}
+            </div>            {/* Password */}
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">
                 Password
@@ -162,6 +227,10 @@ const RegisterPage = () => {
                     minLength: {
                       value: 6,
                       message: 'Password must be at least 6 characters'
+                    },
+                    pattern: {
+                      value: /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>])/,
+                      message: 'Password must contain at least one uppercase letter, one number, and one special character'
                     }
                   })}
                   className="w-full pl-9 sm:pl-10 pr-10 sm:pr-12 py-2 sm:py-3 bg-white/5 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm sm:text-base"
@@ -177,7 +246,7 @@ const RegisterPage = () => {
               </div>
               {errors.password && (
                 <p className="mt-1 text-sm text-red-400">{errors.password.message}</p>
-              )}
+              )}              <PasswordStrengthIndicator password={watch('password') || ''} />
             </div>
 
             {/* Confirm Password */}
