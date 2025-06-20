@@ -38,22 +38,34 @@ const HomePage = () => {
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 text-left mt-12">
           {[
             {
-              icon: <Rocket className="w-6 h-6" />, title: 'AI-Powered Polling', desc: 'Create intelligent, contextual polls using real-time AI suggestions.'
+              icon: <Rocket className="w-6 h-6" />,
+              title: 'AI-Powered Polling',
+              desc: 'Create intelligent, contextual polls using real-time AI suggestions.'
             },
             {
-              icon: <Mic className="w-6 h-6" />, title: 'Voice to Poll', desc: 'Convert your speech to polls instantly using smart voice recognition.'
+              icon: <Mic className="w-6 h-6" />,
+              title: 'Voice to Poll',
+              desc: 'Convert your speech to polls instantly using smart voice recognition.'
             },
             {
-              icon: <Users className="w-6 h-6" />, title: 'Role-Based Login', desc: 'Separate flows for Hosts and Students to manage or participate.'
+              icon: <Users className="w-6 h-6" />,
+              title: 'Role-Based Login',
+              desc: 'Separate flows for Hosts and Students to manage or participate.'
             },
             {
-              icon: <BarChart3 className="w-6 h-6" />, title: 'Real-time Analytics', desc: 'Live results, engagement metrics, and data insights.'
+              icon: <BarChart3 className="w-6 h-6" />,
+              title: 'Real-time Analytics',
+              desc: 'Live results, engagement metrics, and data insights.'
             },
             {
-              icon: <LayoutDashboard className="w-6 h-6" />, title: 'Gamified Dashboard', desc: 'Leaderboards, scores, and progress stats for users.'
+              icon: <LayoutDashboard className="w-6 h-6" />,
+              title: 'Gamified Dashboard',
+              desc: 'Leaderboards, scores, and progress stats for users.'
             },
             {
-              icon: <Sparkles className="w-6 h-6" />, title: 'Beautiful UI/UX', desc: 'Responsive, animated, and delightful user interface throughout.'
+              icon: <Sparkles className="w-6 h-6" />,
+              title: 'Beautiful UI/UX',
+              desc: 'Responsive, animated, and delightful user interface throughout.'
             }
           ].map(({ icon, title, desc }, i) => (
             <motion.div
@@ -61,7 +73,7 @@ const HomePage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 + i * 0.1 }}
-              className="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-xl hover:scale-[1.02] transition-transform"
+              className="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-xl hover:scale-[1.02] transition-transform hover:shadow-[0_0_25px_rgba(139,92,246,0.5)] hover:border-primary-400"
             >
               <div className="mb-3 text-primary-400">{icon}</div>
               <h3 className="text-xl font-semibold mb-1 text-white">{title}</h3>
