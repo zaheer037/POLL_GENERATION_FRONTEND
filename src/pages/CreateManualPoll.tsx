@@ -15,6 +15,7 @@ import {
   Send,
 } from "lucide-react"
 import GlassCard from "../components/GlassCard"
+import DashboardLayout from "../components/DashboardLayout"
 
 interface PollOption {
   id: string
@@ -181,6 +182,7 @@ const CreateManualPoll = () => {
   }
 
   return (
+    <DashboardLayout>
     <div className="min-h-screen bg-gradient-to-br from-dark-900 via-dark-800 to-dark-900 p-4 sm:p-6">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
@@ -654,6 +656,7 @@ const CreateManualPoll = () => {
         </div>
       </div>
     </div>
+</DashboardLayout>
   )
 }
 
