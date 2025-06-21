@@ -9,7 +9,8 @@ import {
   Trophy,
   FileText,
   Settings,
-  LogOut
+  LogOut,
+  PlusSquare
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -21,6 +22,7 @@ const Sidebar = () => {
     { path: '/host', icon: Home, label: 'Dashboard' },
     { path: '/host/audio', icon: Mic, label: 'Audio Capture' },
     { path: '/host/ai-questions', icon: Brain, label: 'AI Questions' },
+    { path: '/host/create-manual-poll', icon: PlusSquare, label: 'Create Manual Poll' }, // ✅ NEW ENTRY
     { path: '/host/participants', icon: Users, label: 'Participants' },
     { path: '/host/leaderboard', icon: Trophy, label: 'Leaderboard' },
     { path: '/host/reports', icon: FileText, label: 'Reports' },
